@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIX - Social Networking Redefined</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #0078D7;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+        }
+
+        input, select, button {
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #0078D7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005BB5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #f4f4f4;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>SIX - Find Your Connection</h1>
+</header>
+
+<main>
+    <h1>Discover People Who Share Your Interests</h1>
+    <form id="userForm">
+        <label for="interests">What are your interests?</label>
+        <input type="text" id="interests" name="interests" placeholder="e.g., hiking, coding, photography" required>
+
+        <label for="location">Where are you from?</label>
+        <input type="text" id="location" name="location" placeholder="e.g., New York, London" required>
+
+        <button type="submit">Find Matches</button>
+    </form>
+
+    <section id="results" style="display: none; margin-top: 2rem;">
+        <h2>Your Closest Match</h2>
+        <p id="matchDetails"></p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2025 SIX. All rights reserved.</p>
+</footer>
+
+<script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const interests = document.getElementById('interests').value;
+        const location = document.getElementById('location').value;
+
+        // Simulating an API response with hardcoded data
+        const mockData = [
+            { interests: 'coding', location: 'San Francisco', name: 'Alex' },
+            { interests: 'hiking', location: 'Denver', name: 'Jamie' },
+            { interests: 'photography', location: 'New York', name: 'Taylor' }
+        ];
+
+        const match = mockData.find(person =>
+            person.interests.toLowerCase().includes(interests.toLowerCase())
+        );
+
+        const resultsSection = document.getElementById('results');
+        const matchDetails = document.getElementById('matchDetails');
+
+        if (match) {
+            matchDetails.textContent = `We found someone nearby! ${match.name} shares your interest in ${match.interests} and is located in ${match.location}.`;
+        } else {
+            matchDetails.textContent = 'Sorry, we couldn\'t find a match at this time.';
+        }
+
+        resultsSection.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
