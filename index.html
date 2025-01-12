@@ -3,130 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SixOfSeparation° - Social Networking Redefined</title>
+    <title>SixOfSeparation°</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #F4F4F3;
+            color: #383838;
         }
-
         header {
-            background-color: #0078D7;
-            color: white;
-            padding: 1rem 0;
+            background-color: #F6C944;
+            color: #383838;
+            padding: 1em 0;
             text-align: center;
         }
-
-        main {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
         form {
-            display: flex;
-            flex-direction: column;
+            max-width: 600px;
+            margin: 2em auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         label {
-            margin-bottom: 0.5rem;
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
         }
-
-        input, select, button {
-            padding: 0.8rem;
-            margin-bottom: 1rem;
+        input, select, button, textarea {
+            width: 100%;
+            padding: 0.8em;
+            margin-bottom: 1em;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         button {
-            background-color: #0078D7;
+            background-color: #383838;
             color: white;
+            font-size: 1em;
             border: none;
             cursor: pointer;
         }
-
         button:hover {
-            background-color: #005BB5;
+            background-color: #2E2E2E;
         }
-
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            background-color: #f4f4f4;
-            color: #666;
+        .matches {
+            max-width: 600px;
+            margin: 2em auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .match {
+            padding: 1em;
+            border-bottom: 1px solid #ddd;
+        }
+        .match:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>SixOfSeparation°</h1>
+        <p>Connect instantly with people who share your interests and passions!</p>
+    </header>
 
-<header>
-    <h1>SixOfSeparation° - Find Your Connection</h1>
-</header>
+    <form id="signupForm">
+        <h2>Sign Up</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
 
-<main>
-    <h1>Discover People Who Share Your Interests</h1>
-    <form id="userForm">
-        <label for="interests">What are your interests?</label>
-        <input type="text" id="interests" name="interests" placeholder="e.g., hiking, coding, photography" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-        <label for="location">Where are you from?</label>
-        <input type="text" id="location" name="location" placeholder="e.g., New York, London" required>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
 
-        <button type="submit">Find Matches</button>
+        <label for="interests">Interests:</label>
+        <textarea id="interests" name="interests" rows="4" placeholder="e.g., hiking, photography, coding"></textarea>
+
+        <label for="involvement">Involvement:</label>
+        <textarea id="involvement" name="involvement" rows="4" placeholder="e.g., local sports teams, community groups"></textarea>
+
+        <button type="submit">Connect Me</button>
     </form>
 
-    <section id="results" style="display: none; margin-top: 2rem;">
-        <h2>Your Closest Match</h2>
-        <p id="matchDetails"></p>
+    <section class="matches" id="matches" style="display: none;">
+        <h2>People You May Connect With:</h2>
+        <div id="matchList"></div>
     </section>
-</main>
 
-<footer>
-    <p>&copy; 2025 SixOfSeparation°. All rights reserved.</p>
-</footer>
+    <script>
+        const form = document.getElementById('signupForm');
+        const matchesSection = document.getElementById('matches');
+        const matchList = document.getElementById('matchList');
 
-<script>
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const interests = document.getElementById('interests').value;
-        const location = document.getElementById('location').value;
-
-        // Simulating an API response with hardcoded data
-        const mockData = [
-            { interests: 'coding', location: 'San Francisco', name: 'Alex' },
-            { interests: 'hiking', location: 'Denver', name: 'Jamie' },
-            { interests: 'photography', location: 'New York', name: 'Taylor' }
+        const mockDatabase = [
+            {
+                name: 'Alice',
+                location: 'New York',
+                interests: ['hiking', 'coding'],
+                involvement: ['local sports teams']
+            },
+            {
+                name: 'Bob',
+                location: 'San Francisco',
+                interests: ['photography', 'gaming'],
+                involvement: ['community groups']
+            },
+            {
+                name: 'Charlie',
+                location: 'New York',
+                interests: ['hiking', 'photography'],
+                involvement: ['volunteer work']
+            }
         ];
 
-        const match = mockData.find(person =>
-            person.interests.toLowerCase().includes(interests.toLowerCase())
-        );
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const user = {
+                name: formData.get('name'),
+                location: formData.get('location'),
+                interests: formData.get('interests').split(',').map(i => i.trim().toLowerCase()),
+                involvement: formData.get('involvement').split(',').map(i => i.trim().toLowerCase())
+            };
 
-        const resultsSection = document.getElementById('results');
-        const matchDetails = document.getElementById('matchDetails');
+            const matches = mockDatabase.filter(person =>
+                person.location.toLowerCase() === user.location.toLowerCase() &&
+                person.interests.some(interest => user.interests.includes(interest))
+            );
 
-        if (match) {
-            matchDetails.textContent = `We found someone nearby! ${match.name} shares your interest in ${match.interests} and is located in ${match.location}.`;
-        } else {
-            matchDetails.textContent = 'Sorry, we couldn\'t find a match at this time.';
+            displayMatches(matches);
+        });
+
+        function displayMatches(matches) {
+            matchList.innerHTML = '';
+            if (matches.length === 0) {
+                matchList.innerHTML = '<p>No matches found. Try adding more interests or changing your location!</p>';
+            } else {
+                matches.forEach(match => {
+                    const matchDiv = document.createElement('div');
+                    matchDiv.classList.add('match');
+                    matchDiv.innerHTML = `
+                        <h3>${match.name}</h3>
+                        <p><strong>Location:</strong> ${match.location}</p>
+                        <p><strong>Interests:</strong> ${match.interests.join(', ')}</p>
+                        <p><strong>Involvement:</strong> ${match.involvement.join(', ')}</p>
+                    `;
+                    matchList.appendChild(matchDiv);
+                });
+            }
+            matchesSection.style.display = 'block';
         }
-
-        resultsSection.style.display = 'block';
-    });
-</script>
-
+    </script>
 </body>
 </html>
