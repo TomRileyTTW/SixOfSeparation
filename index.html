@@ -5,168 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SixOfSeparation°</title>
     <style>
-        @font-face {
-            font-family: 'Facebook Sans';
-            src: url('https://path-to-facebook-sans.woff2') format('woff2'); /* Replace this with the actual path to the font */
-            font-style: normal;
-            font-weight: normal;
-        }
-
         body {
-            font-family: 'Facebook Sans', Arial, sans-serif;
+            font-family: Georgia, serif;
             margin: 0;
             padding: 0;
-            background-color: #F4F4F3;
-            color: #383838;
+            background-color: #F4F4F3; /* Light Gray */
+            color: #383838; /* Dark Gray */
         }
+
         header {
-            background-color: #000000;
-            color: #FFFFFF;
+            background-color: #383838; /* Dark Gray */
+            color: #FFFFFF; /* White */
             padding: 1em 0;
             text-align: center;
         }
-        form {
-            max-width: 600px;
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 0.5em 0 0;
+            font-size: 1.2em;
+        }
+
+        section {
+            max-width: 800px;
             margin: 2em auto;
-            background: white;
             padding: 2em;
+            background: #FFFFFF; /* White */
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-            font-weight: bold;
-        }
-        input, select, button, textarea {
-            width: 100%;
-            padding: 0.8em;
+
+        section h2 {
+            color: #F6C944; /* Yellow */
+            font-size: 1.8em;
             margin-bottom: 1em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-family: 'Facebook Sans', Arial, sans-serif;
         }
+
         button {
-            background-color: #383838;
-            color: white;
+            background-color: #F6C944; /* Yellow */
+            color: #383838; /* Dark Gray */
             font-size: 1em;
+            padding: 0.8em;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-family: Georgia, serif;
         }
+
         button:hover {
-            background-color: #2E2E2E;
+            background-color: #D4AA32; /* Slightly darker yellow */
         }
-        .matches {
-            max-width: 600px;
-            margin: 2em auto;
-            background: white;
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .services {
+            margin-top: 1em;
         }
-        .match {
-            padding: 1em;
-            border-bottom: 1px solid #ddd;
+
+        .service {
+            margin-bottom: 1.5em;
         }
-        .match:last-child {
-            border-bottom: none;
+
+        .service h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #383838; /* Dark Gray */
         }
+
+        .service p {
+            margin: 0.5em 0 0;
+            font-size: 1em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #313131; /* Charcoal Gray */
+            color: #FFFFFF; /* White */
+            margin-top: 2em;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
     </style>
 </head>
 <body>
     <header>
         <h1>SixOfSeparation°</h1>
-        <p>Connect instantly with people who share your interests and passions!</p>
+        <p>Your Trusted Partner in Public Relations</p>
     </header>
 
-    <form id="signupForm">
-        <h2>Sign Up</h2>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required>
-
-        <label for="interests">Interests:</label>
-        <textarea id="interests" name="interests" rows="4" placeholder="e.g., hiking, photography, coding"></textarea>
-
-        <label for="involvement">Involvement:</label>
-        <textarea id="involvement" name="involvement" rows="4" placeholder="e.g., local sports teams, community groups"></textarea>
-
-        <button type="submit">Connect Me</button>
-    </form>
-
-    <section class="matches" id="matches" style="display: none;">
-        <h2>People You May Connect With:</h2>
-        <div id="matchList"></div>
+    <section>
+        <h2>About Thomas Riley</h2>
+        <p>Hello! I’m Thomas Riley, a seasoned public relations professional with years of experience helping individuals and businesses build strong connections and maintain a positive public image. My expertise lies in strategic communication, brand management, and media relations.</p>
+        <p>At SixOfSeparation°, my mission is to connect you with your audience, craft compelling narratives, and foster meaningful relationships that drive success.</p>
     </section>
 
-    <script>
-        const form = document.getElementById('signupForm');
-        const matchesSection = document.getElementById('matches');
-        const matchList = document.getElementById('matchList');
+    <section class="services">
+        <h2>Services</h2>
 
-        const mockDatabase = [
-            {
-                name: 'Alice',
-                location: 'New York',
-                interests: ['hiking', 'coding'],
-                involvement: ['local sports teams']
-            },
-            {
-                name: 'Bob',
-                location: 'San Francisco',
-                interests: ['photography', 'gaming'],
-                involvement: ['community groups']
-            },
-            {
-                name: 'Charlie',
-                location: 'New York',
-                interests: ['hiking', 'photography'],
-                involvement: ['volunteer work']
-            }
-        ];
+        <div class="service">
+            <h3>Media Relations</h3>
+            <p>Developing and maintaining relationships with journalists and media outlets to ensure your story gets the spotlight it deserves.</p>
+        </div>
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const user = {
-                name: formData.get('name'),
-                location: formData.get('location'),
-                interests: formData.get('interests').split(',').map(i => i.trim().toLowerCase()),
-                involvement: formData.get('involvement').split(',').map(i => i.trim().toLowerCase())
-            };
+        <div class="service">
+            <h3>Brand Strategy</h3>
+            <p>Crafting a cohesive and compelling brand identity that resonates with your target audience.</p>
+        </div>
 
-            const matches = mockDatabase.filter(person =>
-                person.location.toLowerCase() === user.location.toLowerCase() &&
-                person.interests.some(interest => user.interests.includes(interest))
-            );
+        <div class="service">
+            <h3>Event Planning</h3>
+            <p>Organizing impactful events that align with your brand’s message and goals.</p>
+        </div>
 
-            displayMatches(matches);
-        });
+        <div class="service">
+            <h3>Crisis Management</h3>
+            <p>Helping you navigate challenging situations with strategic communication and swift action to protect your reputation.</p>
+        </div>
 
-        function displayMatches(matches) {
-            matchList.innerHTML = '';
-            if (matches.length === 0) {
-                matchList.innerHTML = '<p>No matches found. Try adding more interests or changing your location!</p>';
-            } else {
-                matches.forEach(match => {
-                    const matchDiv = document.createElement('div');
-                    matchDiv.classList.add('match');
-                    matchDiv.innerHTML = `
-                        <h3>${match.name}</h3>
-                        <p><strong>Location:</strong> ${match.location}</p>
-                        <p><strong>Interests:</strong> ${match.interests.join(', ')}</p>
-                        <p><strong>Involvement:</strong> ${match.involvement.join(', ')}</p>
-                    `;
-                    matchList.appendChild(matchDiv);
-                });
-            }
-            matchesSection.style.display = 'block';
-        }
-    </script>
+        <div class="service">
+            <h3>Content Creation</h3>
+            <p>Creating engaging press releases, articles, and social media content to keep your audience informed and engaged.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Get in Touch</h2>
+        <p>If you’re ready to elevate your public relations efforts, I’d love to hear from you! Contact me today and let’s work together to achieve your goals.</p>
+        <button>Contact Me</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Thomas Riley | SixOfSeparation°</p>
+    </footer>
 </body>
 </html>
