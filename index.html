@@ -18,25 +18,32 @@
             color: #FFFFFF; /* White */
             padding: 1em 0;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            max-height: 50px;
+            margin-left: 15px;
         }
 
         header h1 {
             margin: 0;
             font-size: 2.5em;
             text-align: center;
+            flex-grow: 1;
         }
 
         header p {
             margin: 0.5em 0 0;
             font-size: 1.2em;
             text-align: center;
+            flex-grow: 1;
         }
 
         .nav-buttons {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
+            margin-right: 15px;
         }
 
         .nav-buttons a {
@@ -141,8 +148,8 @@
 </head>
 <body>
     <header>
+        <img src="SixOfSeparation_White_Logo.png" alt="Six of Separation Logo" class="logo">
         <h1>SixOfSeparation°</h1>
-        <p>Your Trusted Partner in Public Relations</p>
         <div class="nav-buttons">
             <a href="#about">About</a>
             <a href="#services">Services</a>
